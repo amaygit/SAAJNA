@@ -3,6 +3,7 @@ import express from 'express';
 import dotenv from 'dotenv';
 import mongoose from 'mongoose';
 import morgan from 'morgan';
+import routes from './routes/index.js';
 dotenv.config();
 const app = express();
 
@@ -23,6 +24,9 @@ app.get("/", (req, res) => {
         message: "Welcome to SAAJNA API"
     });
 });
+//http:localhost:5000/api-v1/auth/login
+app.use("/api-v1", routes);
+
 //error middleware
 app.use((err, req, res, next) => {
     console.log(err.stack)

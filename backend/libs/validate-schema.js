@@ -1,0 +1,10 @@
+import { z } from 'zod';
+const registerSchema = z.object({
+    name: z.string().min(1, "Name is required"),
+    email: z.string().email("Invlaid email address"),
+    password: z.string().min(8, "Password must be at least 8 characters long"),
+});
+
+export {
+    registerSchema
+}
