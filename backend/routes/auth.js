@@ -2,7 +2,7 @@ import express from 'express';
 
 import {z} from 'zod';
 import { validateRequest } from 'zod-express-middleware';
-import { registerSchema } from '../libs/validate-schema.js';
+import { loginSchema, registerSchema } from '../libs/validate-schema.js';
 import { loginUser, registerUser } from '../controllers/auth-controller.js';
 
 const router = express.Router();
@@ -16,7 +16,7 @@ router.post("/register",
 
 router.post("/login",
     validateRequest({
-        body: registerSchema,
+        body: loginSchema,
     }),
     loginUser
 )
