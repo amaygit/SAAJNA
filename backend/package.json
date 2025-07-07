@@ -12,6 +12,8 @@
     "dev": "nodemon index.js"
   },
   "dependencies": {
+    "@arcjet/inspect": "^1.0.0-beta.8",
+    "@arcjet/node": "^1.0.0-beta.8",
     "@emailjs/browser": "^4.4.1",
     "@sendgrid/mail": "^8.1.5",
     "bcrypt": "^6.0.0",
