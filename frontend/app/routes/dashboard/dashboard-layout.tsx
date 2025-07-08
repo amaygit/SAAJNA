@@ -1,8 +1,13 @@
 import React from 'react'
-
+import { useAuth } from '@/provider/auth-context'
+import { Button } from '@/components/ui/button'
 const DashboardLayout = () => {
+  const {user,logout} =useAuth()
+
   return (
-    <div>DashboardLayout</div>
+    <div>
+    <Button onClick={logout}>Logout</Button>
+    </div>
   )
 }
 
