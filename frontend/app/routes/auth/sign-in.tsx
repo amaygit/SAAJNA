@@ -88,7 +88,7 @@ const SignIn = () => {
               <Button type='submit' className='w-full' disabled={isPending}>
                 {isPending ? <Loader2 className='w-4 h-4 mr-2' />:"Sign in"
                 }
-                Sign In
+                
               </Button>
 
 

@@ -28,7 +28,9 @@ const Navigate=useNavigate()
   const {mutate,isPending} = useSignUpMutation();
 
   const handleOnSubmit = (values: SignupFormData) => {
+    console.log("Signup form values:", values);
     mutate(values,{
+      
       onSuccess:()=>{
         toast.success('Email Verification Required!',{
           description: 'Please check your email for a verification link.If you do not receive an email, please check your spam folder or try signing up again.',
