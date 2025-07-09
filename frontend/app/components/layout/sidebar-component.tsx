@@ -2,7 +2,7 @@
 import { cn } from "@/lib/utils";
 import { useAuth } from "@/provider/auth-context";
 import type { Workspace } from "@/types"
-import { CheckCircle2, ChevronLeft, ChevronRight, ChevronsLeft, ChevronsRight, LayoutDashboard, ListCheck, LogOut, Settings, Users, Wrench } from "lucide-react";
+import { CheckCircle2, ChevronLeft, ChevronRight, ChevronsLeft, ChevronsRight, Gavel, LayoutDashboard, ListCheck, LogOut, Scale, Settings, Users, Wrench } from "lucide-react";
 import { useState } from "react";
 import { Link } from "react-router";
 import { Button } from "../ui/button";
@@ -55,7 +55,7 @@ export const SideBarComponent = ({
                     {
                         !isCollapsed && (
                             <div className="flex items-center gap-2">
-                                <Wrench className="size-6 text-blue-600" />
+                                <Scale className="size-6 text-blue-600" />
                                 <span className="font-semibold text-lg hidden md:block">SAAJNA</span>
                             </div>
                         )}
