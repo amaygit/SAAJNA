@@ -6,6 +6,20 @@ import {Header } from '@/components/layout/header'
 import { Navigate, Outlet } from 'react-router'
 import type { Workspace } from '@/types'
 import { SideBarComponent } from '@/components/layout/sidebar-component'
+import { CreateWorkspace } from '@/components/workspace/create-workspace'
+import { fetchData } from '@/lib/fetch-util'
+
+export const clientLoader = async()=>{
+    try {
+        const [workspaces] = await Promise.all([
+           fetchData("/workspaces")
+        ]);
+        return {workspaces};
+    } catch (error) {
+        console.log(error)
+    }
+}
+
 const DashboardLayout = () => {
   const {isAuthenticated,isLoading} =useAuth();
   const [isCreatingWorkspace, setIsCreatingWorkspace] = useState(false);
@@ -16,8 +30,8 @@ const DashboardLayout = () => {
   if(!isAuthenticated) {
     return <Navigate to="/sign-in" />
   }
-  const handleWorkspaceSelected = (workspaceId: Workspace) => {
-    setCurrentWorkspace(workspaceId)
+  const handleWorkspaceSelected = (workspace: Workspace) => {
+    setCurrentWorkspace(workspace)
   }
   return (
     <div className='flex h-screen w-full'>
@@ -36,6 +50,10 @@ const DashboardLayout = () => {
            </div>
           </main>
         </div>
+        <CreateWorkspace 
+            isCreatingWorkspace={isCreatingWorkspace}
+            setIsCreatingWorkspace={setIsCreatingWorkspace}
+        />
     </div>
   )
 }
