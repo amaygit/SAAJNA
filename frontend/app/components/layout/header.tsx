@@ -65,7 +65,7 @@ export const Header = ({
                                 }
                             </DropdownMenuGroup>
                             <DropdownMenuGroup>
-                                <DropdownMenuItem>
+                                <DropdownMenuItem onClick={onCreateWorkspace}>
                                     <PlusCircle className='w-4 h-4 mr-2' /> Create Workspace
                                 </DropdownMenuItem>
                             </DropdownMenuGroup>
