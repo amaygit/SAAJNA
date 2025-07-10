@@ -23,13 +23,16 @@ export interface Workspace {
     updatedAt:Date;
 }
 
-export enum ProjectStatus{
-    PLANNING="Planned",
-    IN_PROGRESS="In Progress",
-    ON_HOLD="On Hold",
-    COMPLETED="Completed",
-    CANCELLED="Cancelled",
+export enum ProjectStatus {
+  FILED = "Filed",
+  UNDER_REVIEW = "Under Review",
+  IN_COURT = "In Court",
+  JUDGMENT_PASSED = "Judgment Passed",
+  APPEALED = "Appealed",
+  CLOSED = "Closed",
+  WITHDRAWN = "Withdrawn",
 }
+
 export interface Project{
     _id:string;
     title:string;
@@ -90,4 +93,11 @@ export interface Attachment {
   uploadedBy: string;
   uploadedAt: Date;
   _id: string;
+}
+
+export interface MemberProps {
+  _id: string;
+  user: User;
+  role: "admin" | "member" | "owner" | "viewer";
+  joinedAt: Date;
 }

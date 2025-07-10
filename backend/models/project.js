@@ -15,8 +15,16 @@ const projectSchema = new Schema(
     },
     status: {
       type: String,
-      enum: ["Planning", "In Progress", "On Hold", "Completed", "Cancelled"],
-      default: "Planning",
+      enum: [
+        "Filed",
+        "Under Review",
+        "In Court",
+        "Judgment Passed",
+        "Appealed",
+        "Closed",
+        "Withdrawn"
+      ],
+      default: "Filed",
     },
     startDate: { type: Date },
     dueDate: { type: Date },
@@ -30,8 +38,8 @@ const projectSchema = new Schema(
         },
         role: {
           type: String,
-          enum: ["manager", "contributor", "viewer"],
-          default: "contributor",
+          enum: ["lawyer", "assistant", "client"],
+          default: "lawyer",
         },
       },
     ],
