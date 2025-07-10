@@ -55,7 +55,7 @@ export const SideBarComponent = ({
                     {
                         !isCollapsed && (
                             <div className="flex items-center gap-2">
-                                <Scale className="size-6 text-blue-600" />
+                                <Scale  className="size-6 text-blue-600" />
                                 <span className="font-semibold text-lg hidden md:block">SAAJNA</span>
                             </div>
                         )}
