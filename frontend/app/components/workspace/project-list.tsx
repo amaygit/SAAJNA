@@ -1,30 +1,31 @@
-import type { Project } from '@/types';
-import React from 'react'
-import { NoDataFound } from '../no-data-found';
-import { ProjectCard } from '../project/project-card';
+import type { Project } from "@/types";
+import { NoDataFound } from "../no-data-found";
+import { ProjectCard } from "../project/project-card";
 
 interface ProjectListProps {
-    workspaceId: string;
-    projects:Project[];
-    onCreateProject: () => void;
+  workspaceId: string;
+  projects: Project[];
+
+  onCreateProject: () => void;
 }
+
 export const ProjectList = ({
-    workspaceId,
-    projects,
-    onCreateProject
-}:ProjectListProps) => {
+  workspaceId,
+  projects,
+  onCreateProject,
+}: ProjectListProps) => {
   return (
     <div>
-        <h3 className='text-xl font-medium mb-4'>Cases</h3>
-        <div className="grid g-6 sm:grid-cols-2 lg:grid-cols-3">
-            {
-                projects.length === 0 ? <NoDataFound 
-                    title="No cases found"
-                    description="You can create a new case by clicking the button below."
-                    buttonText="Create Case"
-                    buttonAction={onCreateProject}
-                />
-                 : (
+      <h3 className="text-xl font-medium mb-4">Cases</h3>
+      <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        {projects.length === 0 ? (
+          <NoDataFound
+            title="No projects found"
+            description="Create a project to get started"
+            buttonText="Create Project"
+            buttonAction={onCreateProject}
+          />
+        ) : (
           projects.map((project) => {
             const projectProgress = 0;
 
@@ -38,7 +39,7 @@ export const ProjectList = ({
             );
           })
         )}
-        </div>
+      </div>
     </div>
-  )
-}
+  );
+};

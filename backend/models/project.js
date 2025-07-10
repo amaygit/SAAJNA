@@ -38,8 +38,9 @@ const projectSchema = new Schema(
         },
         role: {
           type: String,
-          enum: ["lawyer", "assistant", "client"],
-          default: "lawyer",
+          enum: ["manager", "contributor", "viewer"],
+          default: "contributor",
+
         },
       },
     ],

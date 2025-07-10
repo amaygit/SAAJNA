@@ -60,7 +60,7 @@ export const SideBarComponent = ({
                             </div>
                         )}
                     {
-                        isCollapsed && <Wrench className="size-6 text-blue-600" />
+                        isCollapsed && <Scale className="size-6 text-blue-600" />
 
                     }
                 </Link>

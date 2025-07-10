@@ -1,6 +1,26 @@
-import { projectSchema } from '@/lib/schema';
-import  {ProjectStatus, type MemberProps } from '@/types';
-import { zodResolver } from '@hookform/resolvers/zod';
+import { projectSchema } from "@/lib/schema";
+import { ProjectStatus, type MemberProps } from "@/types";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+} from "../ui/dialog";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "../ui/form";
+import { Input } from "../ui/input";
+import { Textarea } from "../ui/textarea";
 import {
   Select,
   SelectContent,
@@ -8,37 +28,32 @@ import {
   SelectTrigger,
   SelectValue,
 } from "../ui/select";
-// import { UseCreateProject } from "@/hooks/use-project";
-import { useForm } from 'react-hook-form';
-import { toast } from 'sonner';
-import  {z} from 'zod';
-import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from '../ui/dialog';
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '../ui/form';
-import type { title } from 'process';
-import { Input } from '../ui/input';
-import { Textarea } from '../ui/textarea';
-import { Button } from '../ui/button';
-import { Popover, PopoverContent, PopoverTrigger } from '../ui/popover';
+import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
+import { Button } from "../ui/button";
+
+import { format } from "date-fns";
 import { CalendarIcon } from "lucide-react";
 import { Calendar } from "../ui/calendar";
-import { format } from 'date-fns';
-import { Checkbox } from '../ui/checkbox';
+import { Checkbox } from "../ui/checkbox";
+import { UseCreateProject } from "@/hooks/use-project";
+import { toast } from "sonner";
 
 interface CreateProjectDialogProps {
-    isOpen: boolean;
-    onOpenChange: (open: boolean) => void;
-    workspaceId: string;
-    workspaceMembers: MemberProps[];
+  isOpen: boolean;
+  onOpenChange: (open: boolean) => void;
+  workspaceId: string;
+  workspaceMembers: MemberProps[];
 }
-export  type CreateProjectFormData=z.infer<typeof projectSchema>;
+
+export type CreateProjectFormData = z.infer<typeof projectSchema>;
+
 export const CreateProjectDialog = ({
-    isOpen,
-    onOpenChange,
-    workspaceId,
-    workspaceMembers
-    }: CreateProjectDialogProps
-) => {
-    const form = useForm<CreateProjectFormData>({
+  isOpen,
+  onOpenChange,
+  workspaceId,
+  workspaceMembers,
+}: CreateProjectDialogProps) => {
+  const form = useForm<CreateProjectFormData>({
     resolver: zodResolver(projectSchema),
     defaultValues: {
       title: "",
@@ -50,64 +65,66 @@ export const CreateProjectDialog = ({
       tags: undefined,
     },
   });
-    // const { mutate, isPending } = UseCreateProject();
-  const onSubmit = (values: CreateProjectFormData) => {
-    // if (!workspaceId) return;
+  const { mutate, isPending } = UseCreateProject();
 
-    // mutate(
-    //   {
-    //     projectData: values,
-    //     workspaceId,
-    //   },
-    //   {
-    //     onSuccess: () => {
-    //       toast.success("Project created successfully");
-    //       form.reset();
-    //       onOpenChange(false);
-    //     },
-    //     onError: (error: any) => {
-    //       const errorMessage = error.response.data.message;
-    //       toast.error(errorMessage);
-    //       console.log(error);
-    //     },
-    //   }
-    // );
-    console.log(values)
-  }
+  const onSubmit = (values: CreateProjectFormData) => {
+    if (!workspaceId) return;
+
+    mutate(
+      {
+        projectData: values,
+        workspaceId,
+      },
+      {
+        onSuccess: () => {
+          toast.success("Project created successfully");
+          form.reset();
+          onOpenChange(false);
+        },
+        onError: (error: any) => {
+          const errorMessage = error.response.data.message;
+          toast.error(errorMessage);
+          console.log(error);
+        },
+      }
+    );
+  };
+
   return (
     <Dialog open={isOpen} onOpenChange={onOpenChange}>
-        <DialogContent className='sm:max-w-[540px]'>
-            <DialogHeader>
-                <DialogTitle>Create Case</DialogTitle>
-                <DialogDescription>
-                    Create a new case to get started.
-                </DialogDescription>
-            </DialogHeader>
-            <Form {...form}>
-                <form onSubmit={form.handleSubmit(onSubmit)} className='space-y-6'>
+      <DialogContent className="sm:max-w-[540px]">
+        <DialogHeader>
+          <DialogTitle>Create Project</DialogTitle>
+          <DialogDescription>
+            Create a new project to get started
+          </DialogDescription>
+        </DialogHeader>
+
+        <Form {...form}>
+          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
             <FormField
               control={form.control}
               name="title"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Case Title</FormLabel>
+                  <FormLabel>Project Title</FormLabel>
                   <FormControl>
-                    <Input {...field} placeholder="Case Title" />
+                    <Input {...field} placeholder="Project Title" />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
               )}
             />
-             <FormField
+            <FormField
               control={form.control}
               name="description"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Case Description</FormLabel>
+                  <FormLabel>Project Description</FormLabel>
                   <FormControl>
                     <Textarea
                       {...field}
-                      placeholder="Case Description"
+                      placeholder="Project Description"
                       rows={3}
                     />
                   </FormControl>
@@ -120,11 +137,11 @@ export const CreateProjectDialog = ({
               name="status"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Case Status</FormLabel>
+                  <FormLabel>Project Status</FormLabel>
                   <FormControl>
                     <Select value={field.value} onValueChange={field.onChange}>
                       <SelectTrigger className="w-full">
-                        <SelectValue placeholder="Select Case Status" />
+                        <SelectValue placeholder="Select Project Status" />
                       </SelectTrigger>
 
                       <SelectContent>
@@ -138,11 +155,11 @@ export const CreateProjectDialog = ({
                   </FormControl>
                   <FormMessage />
                 </FormItem>
-                
               )}
             />
-  <div className="grid grid-cols-2 gap-4">  
-     <FormField
+
+            <div className="grid grid-cols-2 gap-4">
+              <FormField
                 control={form.control}
                 name="startDate"
                 render={({ field }) => (
@@ -177,7 +194,6 @@ export const CreateProjectDialog = ({
                               field.onChange(date?.toISOString() || undefined);
                             }}
                           />
-                          
                         </PopoverContent>
                       </Popover>
                     </FormControl>
@@ -185,7 +201,7 @@ export const CreateProjectDialog = ({
                   </FormItem>
                 )}
               />
-                       <FormField
+              <FormField
                 control={form.control}
                 name="dueDate"
                 render={({ field }) => (
@@ -227,8 +243,9 @@ export const CreateProjectDialog = ({
                   </FormItem>
                 )}
               />
-  </div>
- <FormField
+            </div>
+
+            <FormField
               control={form.control}
               name="tags"
               render={({ field }) => (
@@ -334,18 +351,18 @@ export const CreateProjectDialog = ({
                                         );
                                       }}
                                     >
-                                      <SelectTrigger >
+                                      <SelectTrigger>
                                         <SelectValue placeholder="Select Role" />
                                       </SelectTrigger>
                                       <SelectContent>
                                         <SelectItem value="manager">
-                                          Lawyer
+                                          Manager
                                         </SelectItem>
                                         <SelectItem value="contributor">
-                                          Sub Lawyer
+                                          Contributor
                                         </SelectItem>
                                         <SelectItem value="viewer">
-                                          Client
+                                          Viewer
                                         </SelectItem>
                                       </SelectContent>
                                     </Select>
@@ -363,12 +380,14 @@ export const CreateProjectDialog = ({
               }}
             />
 
-          
-
-
-                </form>
-            </Form>
-        </DialogContent>
+            <DialogFooter>
+              <Button type="submit" disabled={isPending}>
+                {isPending ? "Creating..." : "Create Project"}
+              </Button>
+            </DialogFooter>
+          </form>
+        </Form>
+      </DialogContent>
     </Dialog>
-  )
-}
+  );
+};
