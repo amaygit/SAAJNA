@@ -83,19 +83,19 @@ const ProjectDetails = () => {
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
             <TabsList>
               <TabsTrigger value="all" onClick={() => setTaskFilter("All")}>
-                All Tasks
+                All Cases
               </TabsTrigger>
               <TabsTrigger value="todo" onClick={() => setTaskFilter("To Do")}>
-                To Do
+                Pending Cases
               </TabsTrigger>
               <TabsTrigger
                 value="in-progress"
                 onClick={() => setTaskFilter("In Progress")}
               >
-                In Progress
+                Under Trial
               </TabsTrigger>
               <TabsTrigger value="done" onClick={() => setTaskFilter("Done")}>
-                Done
+                Judgment Passed
               </TabsTrigger>
             </TabsList>
 
@@ -103,14 +103,14 @@ const ProjectDetails = () => {
               <span className="text-muted-foreground">Status:</span>
               <div>
                 <Badge variant="outline" className="bg-background">
-                  {tasks.filter((task) => task.status === "To Do").length} To Do
+                  {tasks.filter((task) => task.status === "To Do").length} Case Pending
                 </Badge>
                 <Badge variant="outline" className="bg-background">
                   {tasks.filter((task) => task.status === "In Progress").length}{" "}
-                  In Progress
+                  Under Trial
                 </Badge>
                 <Badge variant="outline" className="bg-background">
-                  {tasks.filter((task) => task.status === "Done").length} Done
+                  {tasks.filter((task) => task.status === "Done").length} Judgment Passed
                 </Badge>
               </div>
             </div>
@@ -119,19 +119,19 @@ const ProjectDetails = () => {
           <TabsContent value="all" className="m-0">
             <div className="grid grid-cols-3 gap-4">
               <TaskColumn
-                title="To Do"
+                title="Case Begin"
                 tasks={tasks.filter((task) => task.status === "To Do")}
                 onTaskClick={handleTaskClick}
               />
 
               <TaskColumn
-                title="In Progress"
+                title="Case In Progress"
                 tasks={tasks.filter((task) => task.status === "In Progress")}
                 onTaskClick={handleTaskClick}
               />
 
               <TaskColumn
-                title="Done"
+                title="Case Completed"
                 tasks={tasks.filter((task) => task.status === "Done")}
                 onTaskClick={handleTaskClick}
               />

@@ -77,7 +77,7 @@ export const CreateProjectDialog = ({
       },
       {
         onSuccess: () => {
-          toast.success("Project created successfully");
+          toast.success("Case created successfully");
           form.reset();
           onOpenChange(false);
         },
@@ -94,9 +94,9 @@ export const CreateProjectDialog = ({
     <Dialog open={isOpen} onOpenChange={onOpenChange}>
       <DialogContent className="sm:max-w-[540px]">
         <DialogHeader>
-          <DialogTitle>Create Project</DialogTitle>
+          <DialogTitle>Create Case</DialogTitle>
           <DialogDescription>
-            Create a new project to get started
+            Create a new case to get started
           </DialogDescription>
         </DialogHeader>
 
@@ -107,9 +107,9 @@ export const CreateProjectDialog = ({
               name="title"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Project Title</FormLabel>
+                  <FormLabel>Case Title</FormLabel>
                   <FormControl>
-                    <Input {...field} placeholder="Project Title" />
+                    <Input {...field} placeholder="Case Title" />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -124,7 +124,7 @@ export const CreateProjectDialog = ({
                   <FormControl>
                     <Textarea
                       {...field}
-                      placeholder="Project Description"
+                      placeholder="Case Description"
                       rows={3}
                     />
                   </FormControl>
@@ -137,11 +137,11 @@ export const CreateProjectDialog = ({
               name="status"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Project Status</FormLabel>
+                  <FormLabel>Case Status</FormLabel>
                   <FormControl>
                     <Select value={field.value} onValueChange={field.onChange}>
                       <SelectTrigger className="w-full">
-                        <SelectValue placeholder="Select Project Status" />
+                        <SelectValue placeholder="Select Case Status" />
                       </SelectTrigger>
 
                       <SelectContent>
@@ -356,13 +356,13 @@ export const CreateProjectDialog = ({
                                       </SelectTrigger>
                                       <SelectContent>
                                         <SelectItem value="manager">
-                                          Manager
+                                          Lawyer
                                         </SelectItem>
                                         <SelectItem value="contributor">
-                                          Contributor
+                                          Sublawyer
                                         </SelectItem>
                                         <SelectItem value="viewer">
-                                          Viewer
+                                          Client
                                         </SelectItem>
                                       </SelectContent>
                                     </Select>
@@ -382,7 +382,7 @@ export const CreateProjectDialog = ({
 
             <DialogFooter>
               <Button type="submit" disabled={isPending}>
-                {isPending ? "Creating..." : "Create Project"}
+                {isPending ? "Creating..." : "Create Case"}
               </Button>
             </DialogFooter>
           </form>
