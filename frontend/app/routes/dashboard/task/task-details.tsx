@@ -181,7 +181,7 @@ const TaskDetails = () => {
                   onClick={() => {}}
                   className="hidden md:block"
                 >
-                  Delete Task
+                  Delete Case
                 </Button>
               </div>
             </div>

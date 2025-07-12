@@ -22,7 +22,7 @@ export const ProjectList = ({
           <NoDataFound
             title="No projects found"
             description="Create a project to get started"
-            buttonText="Create Project"
+            buttonText="Create Case"
             buttonAction={onCreateProject}
           />
         ) : (
