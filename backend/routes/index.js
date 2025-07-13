@@ -9,6 +9,8 @@ router.use('/workspaces', workspaceRoutes);
 router.use('/auth', authRoutes);
 router.use('/projects',projectRoutes)
 router.use("/tasks",taskRoutes)
+// router.use("/settings",taskRoutes)
+
 
 
 export default router;

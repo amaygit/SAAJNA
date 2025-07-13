@@ -18,5 +18,11 @@ export default [
       "workspaces/:workspaceId/projects/:projectId/tasks/:taskId",
       "routes/dashboard/task/task-details.tsx"
     ),
+    route("settings", "routes/dashboard/settings.tsx"),
+
+   route("workspaces/:workspaceId/settings", "routes/dashboard/workspaces/workspace-settings.tsx") 
+
+
+
     ]),
 ] satisfies RouteConfig;
