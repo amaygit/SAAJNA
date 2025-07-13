@@ -93,7 +93,51 @@ const getWorkspaceProjects = async (req, res) => {
     });
   }
 };
+const updateWorkspace = async (req, res) => {
+  try {
+    const { workspaceId } = req.params;
+    const { name, description, color } = req.body;
+
+    const workspace = await Workspace.findOneAndUpdate(
+      { _id: workspaceId, owner: req.user._id }, // only allow owner to update
+      { name, description, color },
+      { new: true, runValidators: true }
+    );
+
+    if (!workspace) {
+      return res.status(404).json({ message: "Workspace not found or not authorized" });
+    }
+
+    res.status(200).json(workspace);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Internal Server Error" });
+  }
+};
+
+const deleteWorkspace = async (req, res) => {
+  try {
+    const { workspaceId } = req.params;
+
+    const workspace = await Workspace.findOneAndDelete({
+      _id: workspaceId,
+      owner: req.user._id, // only allow owner to delete
+    });
+
+    if (!workspace) {
+      return res.status(404).json({ message: "Workspace not found or not authorized" });
+    }
+
+    // Optional: delete associated projects or clean up
+    await Project.deleteMany({ workspace: workspaceId });
+
+    res.status(200).json({ message: "Workspace deleted successfully" });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Internal Server Error" });
+  }
+};
 
 
 
-export { createWorkspace, getWorkspaces, getWorkspaceDetails, getWorkspaceProjects };
+export { createWorkspace, getWorkspaces, getWorkspaceDetails, getWorkspaceProjects,updateWorkspace,deleteWorkspace };
