@@ -27,7 +27,7 @@ export const SubTasksDetails = ({
       { taskId, subTaskId, completed: checked },
       {
         onSuccess: () => {
-          toast.success("Sub task updated successfully");
+          toast.success("Case Milestone updated successfully");
         },
         onError: (error: any) => {
           const errMessage = error.response.data.message;
@@ -44,7 +44,7 @@ export const SubTasksDetails = ({
       {
         onSuccess: () => {
           setNewSubTask("");
-          toast.success("Sub task added successfully");
+          toast.success("Case Milestone added successfully");
         },
         onError: (error: any) => {
           const errMessage = error.response.data.message;
@@ -58,7 +58,7 @@ export const SubTasksDetails = ({
   return (
     <div className="mb-6">
       <h3 className="text-sm font-medium text-muted-foreground mb-0">
-        Sub Tasks
+        Case Milestone
       </h3>
 
       <div className="space-y-2 mb-4">
@@ -85,13 +85,13 @@ export const SubTasksDetails = ({
             </div>
           ))
         ) : (
-          <div className="text-sm text-muted-foreground">No sub tasks</div>
+          <div className="text-sm text-muted-foreground">No hearing or filing</div>
         )}
       </div>
 
       <div className="flex ">
         <Input
-          placeholder="Add a sub task"
+          placeholder="Add a hearing or filing"
           value={newSubTask}
           onChange={(e) => setNewSubTask(e.target.value)}
           className="mr-1"

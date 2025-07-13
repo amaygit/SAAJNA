@@ -40,9 +40,9 @@ export const TaskStatusSelector = ({
       </SelectTrigger>
 
       <SelectContent>
-        <SelectItem value="To Do">To Do</SelectItem>
-        <SelectItem value="In Progress">In Progress</SelectItem>
-        <SelectItem value="Done">Done</SelectItem>
+        <SelectItem value="To Do">Case Filed</SelectItem>
+        <SelectItem value="In Progress">Case in Progress</SelectItem>
+        <SelectItem value="Done">Case completed</SelectItem>
       </SelectContent>
     </Select>
   );
