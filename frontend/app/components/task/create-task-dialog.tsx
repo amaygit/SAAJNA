@@ -90,7 +90,7 @@ export const CreateTaskDialog = ({
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>Create Task</DialogTitle>
+          <DialogTitle>Create Case</DialogTitle>
         </DialogHeader>
 
         <Form {...form}>
@@ -104,7 +104,7 @@ export const CreateTaskDialog = ({
                     <FormItem>
                       <FormLabel>Title</FormLabel>
                       <FormControl>
-                        <Input {...field} placeholder="Enter task title" />
+                        <Input {...field} placeholder="Enter case title" />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -119,7 +119,7 @@ export const CreateTaskDialog = ({
                       <FormControl>
                         <Textarea
                           {...field}
-                          placeholder="Enter task description"
+                          placeholder="Enter case description"
                         />
                       </FormControl>
                       <FormMessage />
@@ -147,11 +147,11 @@ export const CreateTaskDialog = ({
                               </FormControl>
 
                               <SelectContent>
-                                <SelectItem value="To Do">To Do</SelectItem>
+                                <SelectItem value="To Do">Filed Cases</SelectItem>
                                 <SelectItem value="In Progress">
-                                  In Progress
+                                  Case In Progress
                                 </SelectItem>
-                                <SelectItem value="Done">Done</SelectItem>
+                                <SelectItem value="Done">Closed Cases</SelectItem>
                               </SelectContent>
                             </FormItem>
                           </Select>
@@ -326,7 +326,7 @@ export const CreateTaskDialog = ({
 
             <DialogFooter>
               <Button type="submit" disabled={isPending}>
-                {isPending ? "Creating..." : "Create Task"}
+                {isPending ? "Creating..." : "Create Case"}
               </Button>
             </DialogFooter>
           </form>

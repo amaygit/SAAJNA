@@ -54,7 +54,7 @@ const TaskDetails = () => {
   if (!data) {
     return (
       <div className="flex items-center justify-center h-screen">
-        <div className="text-2xl font-bold">Task not found</div>
+        <div className="text-2xl font-bold">Case not found</div>
       </div>
     );
   }
@@ -87,10 +87,10 @@ const TaskDetails = () => {
       { taskId: task._id },
       {
         onSuccess: () => {
-          toast.success("Task achieved");
+          toast.success("Case achieved");
         },
         onError: () => {
-          toast.error("Failed to achieve task");
+          toast.error("Failed to achieve case");
         },
       }
     );

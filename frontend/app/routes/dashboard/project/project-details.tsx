@@ -74,11 +74,11 @@ const ProjectDetails = () => {
             </span>
           </div>
 
-          <Button onClick={() => setIsCreateTask(true)}>Add Task</Button>
+          <Button onClick={() => setIsCreateTask(true)}>Add Case</Button>
         </div>
       </div>
 
-      <div className="flex items-center justify-between">
+      <div className="flex items-center justify-between"> 
         <Tabs defaultValue="all" className="w-full">
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
             <TabsList>
@@ -86,16 +86,16 @@ const ProjectDetails = () => {
                 All Cases
               </TabsTrigger>
               <TabsTrigger value="todo" onClick={() => setTaskFilter("To Do")}>
-                Pending Cases
+                Filed Cases
               </TabsTrigger>
               <TabsTrigger
                 value="in-progress"
                 onClick={() => setTaskFilter("In Progress")}
               >
-                Under Trial
+                Case In Progress
               </TabsTrigger>
               <TabsTrigger value="done" onClick={() => setTaskFilter("Done")}>
-                Judgment Passed
+                Closed Cases
               </TabsTrigger>
             </TabsList>
 
@@ -103,14 +103,14 @@ const ProjectDetails = () => {
               <span className="text-muted-foreground">Status:</span>
               <div>
                 <Badge variant="outline" className="bg-background">
-                  {tasks.filter((task) => task.status === "To Do").length} Case Pending
+                  {tasks.filter((task) => task.status === "To Do").length} Filed Cases
                 </Badge>
                 <Badge variant="outline" className="bg-background">
                   {tasks.filter((task) => task.status === "In Progress").length}{" "}
-                  Under Trial
+                  Case In Progress
                 </Badge>
                 <Badge variant="outline" className="bg-background">
-                  {tasks.filter((task) => task.status === "Done").length} Judgment Passed
+                  {tasks.filter((task) => task.status === "Done").length} Closed Cases
                 </Badge>
               </div>
             </div>
@@ -119,7 +119,7 @@ const ProjectDetails = () => {
           <TabsContent value="all" className="m-0">
             <div className="grid grid-cols-3 gap-4">
               <TaskColumn
-                title="Case Begin"
+                title="Filed Cases"
                 tasks={tasks.filter((task) => task.status === "To Do")}
                 onTaskClick={handleTaskClick}
               />
@@ -131,7 +131,7 @@ const ProjectDetails = () => {
               />
 
               <TaskColumn
-                title="Case Completed"
+                title="Closed Cases"
                 tasks={tasks.filter((task) => task.status === "Done")}
                 onTaskClick={handleTaskClick}
               />
@@ -228,7 +228,7 @@ const TaskColumn = ({
         >
           {tasks.length === 0 ? (
             <div className="text-center text-sm text-muted-foreground">
-              No tasks yet
+              No Cases yet
             </div>
           ) : (
             tasks.map((task) => (
@@ -274,7 +274,7 @@ const TaskCard = ({ task, onClick }: { task: Task; onClick: () => void }) => {
                 onClick={() => {
                   console.log("mark as to do");
                 }}
-                title="Mark as To Do"
+                title="Mark as File Case"
               >
                 <AlertCircle className={cn("size-4")} />
                 <span className="sr-only">Mark as To Do</span>
@@ -302,7 +302,7 @@ const TaskCard = ({ task, onClick }: { task: Task; onClick: () => void }) => {
                 onClick={() => {
                   console.log("mark as done");
                 }}
-                title="Mark as Done"
+                title="Mark as Completed"
               >
                 <CheckCircle className={cn("size-4")} />
                 <span className="sr-only">Mark as Done</span>
@@ -313,7 +313,7 @@ const TaskCard = ({ task, onClick }: { task: Task; onClick: () => void }) => {
       </CardHeader>
 
       <CardContent>
-        <h4 className="ont-medium mb-2">{task.title}</h4>
+        <h4 className="font-medium mb-2">{task.title}</h4>
 
         {task.description && (
           <p className="text-sm text-muted-foreground line-clamp-2 mb-2">
