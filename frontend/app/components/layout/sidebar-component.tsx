@@ -38,7 +38,7 @@ export const SideBarComponent = ({
         },
         {
             title: "Achieved",
-            href: "/achieved",
+             href: currentWorkspace ? `/dashboard/${currentWorkspace._id}/achived` : "/achieved",
             icon: CheckCircle2,
         },
         {

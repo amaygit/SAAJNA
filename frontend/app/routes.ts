@@ -20,7 +20,14 @@ export default [
     ),
     route("settings", "routes/dashboard/settings.tsx"),
 
-   route("workspaces/:workspaceId/settings", "routes/dashboard/workspaces/workspace-settings.tsx") 
+   route("workspaces/:workspaceId/settings", "routes/dashboard/workspaces/workspace-settings.tsx") ,
+     route("achieved", "routes/dashboard/select-workspace.tsx"),
+     route("dashboard/:workspaceId/achived", "routes/dashboard/task/achieved.tsx")
+
+// route(
+//   "dashboard/:workspaceId/tasks",
+//   "routes/dashboard/task/achieved.tsx"
+// ),
 
 
 

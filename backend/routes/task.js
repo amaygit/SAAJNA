@@ -8,6 +8,7 @@ import {
   addComment,
   addSubTask,
   createTask,
+//   getAchievedTasks,
   getActivityByResourceId,
   getCommentsByTaskId,
 //   getMyTasks,
@@ -23,6 +24,8 @@ import {
 import authMiddleware from "../middleware/auth-middleware.js";
 
 const router = express.Router();
+
+// router.get("/achieved", authMiddleware, getAchievedTasks);
 
 router.post(
   "/:projectId/create-task",
