@@ -22,6 +22,18 @@ export const useGetWorkspaceQuery = (workspaceId: string) => {
   });
 };  
 
+export const useGetWorkspaceStatsQuery = (workspaceId: string, p0: { enabled: boolean }) => {
+  return useQuery({
+    queryKey: ["workspace", workspaceId, "stats"],
+    queryFn: async () => fetchData(`/workspaces/${workspaceId}/stats`),
+  });
+};
+export const useGetWorkspaceDetailsQuery = (workspaceId: string) => {
+  return useQuery({
+    queryKey: ["workspace", workspaceId, "details"],
+    queryFn: async () => fetchData(`/workspaces/${workspaceId}`),
+  });
+};
 export const useUpdateWorkspace = (workspaceId: string) => {
   return useMutation({
     mutationFn: async (data: WorkspaceForm) =>

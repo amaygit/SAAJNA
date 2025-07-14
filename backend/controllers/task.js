@@ -15,7 +15,7 @@ const createTask = async (req, res) => {
 
     if (!project) {
       return res.status(404).json({
-        message: "Project not found",
+        message: "Case not found",
       });
     }
 
@@ -70,7 +70,7 @@ const getTaskById = async (req, res) => {
 
     if (!task) {
       return res.status(404).json({
-        message: "Task not found",
+        message: "Case not found",
       });
     }
 
@@ -97,7 +97,7 @@ const updateTaskTitle = async (req, res) => {
 
     if (!task) {
       return res.status(404).json({
-        message: "Task not found",
+        message: "Case not found",
       });
     }
 
@@ -105,7 +105,7 @@ const updateTaskTitle = async (req, res) => {
 
     if (!project) {
       return res.status(404).json({
-        message: "Project not found",
+        message: "Case not found",
       });
     }
 
@@ -124,7 +124,7 @@ const updateTaskTitle = async (req, res) => {
     task.title = title;
     await task.save();
 
-    // case record activity
+    // record activity
     await recordActivity(req.user._id, "updated_task", "Task", taskId, {
       description: `updated task title from ${oldTitle} to ${title}`,
     });
@@ -146,7 +146,7 @@ const updateTaskDescription = async (req, res) => {
 
     if (!task) {
       return res.status(404).json({
-        message: "Task not found",
+        message: "Case not found",
       });
     }
 
@@ -154,7 +154,7 @@ const updateTaskDescription = async (req, res) => {
 
     if (!project) {
       return res.status(404).json({
-        message: "Project not found",
+        message: "Case not found",
       });
     }
 
@@ -179,7 +179,7 @@ const updateTaskDescription = async (req, res) => {
 
     // record activity
     await recordActivity(req.user._id, "updated_task", "Task", taskId, {
-      description: `updated case description from ${oldDescription} to ${newDescription}`,
+      description: `updated task description from ${oldDescription} to ${newDescription}`,
     });
 
     res.status(200).json(task);
@@ -192,30 +192,24 @@ const updateTaskDescription = async (req, res) => {
 };
 
 const updateTaskStatus = async (req, res) => {
+
   try {
     const { taskId } = req.params;
     const { status } = req.body;
 
     const task = await Task.findById(taskId);
-
     if (!task) {
-      return res.status(404).json({
-        message: "Task not found",
-      });
+      return res.status(404).json({ message: "Case not found" });
     }
 
     const project = await Project.findById(task.project);
-
     if (!project) {
-      return res.status(404).json({
-        message: "Project not found",
-      });
+      return res.status(404).json({ message: "Case not found" });
     }
 
     const isMember = project.members.some(
       (member) => member.user.toString() === req.user._id.toString()
     );
-
     if (!isMember) {
       return res.status(403).json({
         message: "You are not a member of this project",
@@ -223,11 +217,15 @@ const updateTaskStatus = async (req, res) => {
     }
 
     const oldStatus = task.status;
-
     task.status = status;
+
+    // ✅ Fix missing workspace
+    if (!task.workspace) {
+      task.workspace = project.workspace;
+    }
+
     await task.save();
 
-    // record activity
     await recordActivity(req.user._id, "updated_task", "Task", taskId, {
       description: `updated case status from ${oldStatus} to ${status}`,
     });
@@ -258,7 +256,7 @@ const updateTaskAssignees = async (req, res) => {
 
     if (!project) {
       return res.status(404).json({
-        message: "Project not found",
+        message: "Case not found",
       });
     }
 
@@ -268,7 +266,7 @@ const updateTaskAssignees = async (req, res) => {
 
     if (!isMember) {
       return res.status(403).json({
-        message: "You are not a member of this project",
+        message: "You are not a member of this case",
       });
     }
 
@@ -307,7 +305,7 @@ const updateTaskPriority = async (req, res) => {
 
     if (!project) {
       return res.status(404).json({
-        message: "Project not found",
+        message: "Case not found",
       });
     }
 
@@ -317,7 +315,7 @@ const updateTaskPriority = async (req, res) => {
 
     if (!isMember) {
       return res.status(403).json({
-        message: "You are not a member of this project",
+        message: "You are not a member of this case",
       });
     }
 
@@ -349,7 +347,7 @@ const addSubTask = async (req, res) => {
 
     if (!task) {
       return res.status(404).json({
-        message: "case milestone not found",
+        message: "case not found",
       });
     }
 
@@ -357,7 +355,7 @@ const addSubTask = async (req, res) => {
 
     if (!project) {
       return res.status(404).json({
-        message: "Project not found",
+        message: "case not found",
       });
     }
 
@@ -403,7 +401,7 @@ const updateSubTask = async (req, res) => {
 
     if (!task) {
       return res.status(404).json({
-        message: "Task not found",
+        message: "Case not found",
       });
     }
 
@@ -413,7 +411,7 @@ const updateSubTask = async (req, res) => {
 
     if (!subTask) {
       return res.status(404).json({
-        message: "Subtask not found",
+        message: "Case milestone not found",
       });
     }
 
@@ -422,7 +420,7 @@ const updateSubTask = async (req, res) => {
 
     // record activity
     await recordActivity(req.user._id, "updated_subtask", "Task", taskId, {
-      description: `updated case milestone ${subTask.title}`,
+      description: `updated case mileston ${subTask.title}`,
     });
 
     res.status(200).json(task);
@@ -477,7 +475,7 @@ const addComment = async (req, res) => {
 
     if (!task) {
       return res.status(404).json({
-        message: "Task not found",
+        message: "case not found",
       });
     }
 
@@ -485,7 +483,7 @@ const addComment = async (req, res) => {
 
     if (!project) {
       return res.status(404).json({
-        message: "Project not found",
+        message: "case not found",
       });
     }
 
@@ -495,7 +493,7 @@ const addComment = async (req, res) => {
 
     if (!isMember) {
       return res.status(403).json({
-        message: "You are not a member of this project",
+        message: "You are not a member of this case",
       });
     }
 
@@ -532,7 +530,7 @@ const watchTask = async (req, res) => {
 
     if (!task) {
       return res.status(404).json({
-        message: "Task not found",
+        message: "case not found",
       });
     }
 
@@ -540,7 +538,7 @@ const watchTask = async (req, res) => {
 
     if (!project) {
       return res.status(404).json({
-        message: "Project not found",
+        message: "case not found",
       });
     }
 
@@ -550,7 +548,7 @@ const watchTask = async (req, res) => {
 
     if (!isMember) {
       return res.status(403).json({
-        message: "You are not a member of this project",
+        message: "You are not a member of this case",
       });
     }
 
@@ -590,7 +588,7 @@ const achievedTask = async (req, res) => {
 
     if (!task) {
       return res.status(404).json({
-        message: "Task not found",
+        message: "Case not found",
       });
     }
 
@@ -598,7 +596,7 @@ const achievedTask = async (req, res) => {
 
     if (!project) {
       return res.status(404).json({
-        message: "Project not found",
+        message: "Case not found",
       });
     }
 
@@ -608,7 +606,7 @@ const achievedTask = async (req, res) => {
 
     if (!isMember) {
       return res.status(403).json({
-        message: "You are not a member of this project",
+        message: "You are not a member of this Case",
       });
     }
     const isAchieved = task.isArchived;
@@ -633,20 +631,20 @@ const achievedTask = async (req, res) => {
   }
 };
 
-// const getMyTasks = async (req, res) => {
-//   try {
-//     const tasks = await Task.find({ assignees: { $in: [req.user._id] } })
-//       .populate("project", "title workspace")
-//       .sort({ createdAt: -1 });
+const getMyTasks = async (req, res) => {
+  try {
+    const tasks = await Task.find({ assignees: { $in: [req.user._id] } })
+      .populate("project", "title workspace")
+      .sort({ createdAt: -1 });
 
-//     res.status(200).json(tasks);
-//   } catch (error) {
-//     console.log(error);
-//     return res.status(500).json({
-//       message: "Internal server error",
-//     });
-//   }
-// };
+    res.status(200).json(tasks);
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({
+      message: "Internal server error",
+    });
+  }
+};
 
 export {
   createTask,
@@ -663,5 +661,5 @@ export {
   addComment,
   watchTask,
   achievedTask,
-//   getMyTasks,
+  getMyTasks,
 };
