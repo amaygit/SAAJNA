@@ -35,6 +35,8 @@ import {
   SelectValue,
 } from "../ui/select";
 import { Textarea } from "../ui/textarea";
+// import { useDeleteProject } from "@/hooks/use-project";
+// import { useNavigate } from "react-router";
 
 interface CreateTaskDialogProps {
   open: boolean;
@@ -73,7 +75,7 @@ export const CreateTaskDialog = ({
       },
       {
         onSuccess: () => {
-          toast.success("Task created successfully");
+          toast.success("Case created successfully");
           form.reset();
           onOpenChange(false);
         },
@@ -85,6 +87,23 @@ export const CreateTaskDialog = ({
       }
     );
   };
+//   const navigate = useNavigate();
+//   const { mutate: deleteProject, isPending: isDeleting } = useDeleteProject();
+
+// const handleDeleteCase = () => {
+//   if (!confirm("Are you sure you want to delete this case? This cannot be undone.")) return;
+
+//   deleteProject(projectId, {
+//     onSuccess: () => {
+//       toast.success("Case deleted");
+//       onOpenChange(false);
+//       navigate("/dashboard");
+//     },
+//     onError: (err: any) => {
+//       toast.error(err?.response?.data?.message || "Delete failed");
+//     },
+//   });
+// };
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
@@ -331,6 +350,7 @@ export const CreateTaskDialog = ({
             </DialogFooter>
           </form>
         </Form>
+        
       </DialogContent>
     </Dialog>
   );

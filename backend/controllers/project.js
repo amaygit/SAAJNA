@@ -122,5 +122,41 @@ const getProjectTasks = async (req, res) => {
     });
   }
 };
+const deleteProject = async (req, res) => {
+  try {
+    const { projectId } = req.params;
 
-export { createProject, getProjectDetails, getProjectTasks };
+    const project = await Project.findById(projectId);
+    if (!project) {
+      return res.status(404).json({ message: "Case not found" });
+    }
+
+    // Check if requester is a member
+    const isMember = project.members.some(
+      (member) => member.user.toString() === req.user._id.toString()
+    );
+    if (!isMember) {
+      return res.status(403).json({ message: "Unauthorized" });
+    }
+
+    // Remove project ref from workspace
+    await Workspace.findByIdAndUpdate(project.workspace, {
+      $pull: { projects: project._id },
+    });
+
+    // Delete all tasks inside the project
+    await Task.deleteMany({ project: projectId });
+
+    // Delete the project
+    await project.deleteOne();
+
+    return res.status(200).json({ message: "Case deleted successfully" });
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ message: "Internal server error" });
+  }
+};
+
+export { createProject, getProjectDetails, getProjectTasks, deleteProject };
+
+

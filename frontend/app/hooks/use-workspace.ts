@@ -28,10 +28,14 @@ export const useGetWorkspaceStatsQuery = (workspaceId: string, p0: { enabled: bo
     queryFn: async () => fetchData(`/workspaces/${workspaceId}/stats`),
   });
 };
-export const useGetWorkspaceDetailsQuery = (workspaceId: string) => {
+export const useGetWorkspaceDetailsQuery = (
+  workspaceId: string | undefined,
+  options?: { enabled?: boolean }
+) => {
   return useQuery({
     queryKey: ["workspace", workspaceId, "details"],
     queryFn: async () => fetchData(`/workspaces/${workspaceId}`),
+    enabled: !!workspaceId && options?.enabled !== false, // ✅ prevent running when no ID
   });
 };
 export const useUpdateWorkspace = (workspaceId: string) => {
@@ -45,5 +49,28 @@ export const useDeleteWorkspace = () => {
   return useMutation({
     mutationFn: async (workspaceId: string) =>
       deleteData(`/workspaces/${workspaceId}`),
+  });
+};
+
+export const useInviteMemberMutation = () => {
+  return useMutation({
+    mutationFn: (data: { email: string; role: string; workspaceId: string }) =>
+      postData(`/workspaces/${data.workspaceId}/invite-member`, data),
+  });
+};
+
+export const useAcceptInviteByTokenMutation = () => {
+  return useMutation({
+    mutationFn: (token: string) =>
+      postData(`/workspaces/accept-invite-token`, {
+        token,
+      }),
+  });
+};
+
+export const useAcceptGenerateInviteMutation = () => {
+  return useMutation({
+    mutationFn: (workspaceId: string) =>
+      postData(`/workspaces/${workspaceId}/accept-generate-invite`, {}),
   });
 };

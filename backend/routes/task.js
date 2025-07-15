@@ -11,7 +11,7 @@ import {
 //   getAchievedTasks,
   getActivityByResourceId,
   getCommentsByTaskId,
-//   getMyTasks,
+  getMyTasks,
   getTaskById,
   updateSubTask,
   updateTaskAssignees,
@@ -127,7 +127,7 @@ router.put(
   updateTaskAssignees
 );
 
-// router.get("/my-tasks", authMiddleware, getMyTasks);
+router.get("/my-tasks", authMiddleware, getMyTasks);
 
 router.put(
   "/:taskId/priority",

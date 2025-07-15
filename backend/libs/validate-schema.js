@@ -22,11 +22,16 @@ const resetPasswordSchema=z.object({
 const emailSchema = z.object({
     email: z.string().email("Invalid email address"),
 });
+
 const workspaceSchema = z.object({
     name: z.string().min(1,"Name is required"),
     description:z.string().optional(),
     color:z.string().min(1,"Color is required"),
 })
+const inviteMemberSchema = z.object({
+  email: z.string().email("Invalid email address"),
+  role: z.enum(["admin", "member", "viewer"]),
+});
 const tokenSchema = z.object({
   token: z.string().min(1, "Token is required"),
 });
@@ -67,6 +72,7 @@ const taskSchema = z.object({
   assignees: z.array(z.string()).min(1, "At least one assignee is required"),
 });
 
+
 export {
-    registerSchema,loginSchema,verifyEmailSchema,resetPasswordSchema,emailSchema,workspaceSchema,projectSchema, taskSchema,tokenSchema,
+    registerSchema,loginSchema,verifyEmailSchema,resetPasswordSchema,emailSchema,workspaceSchema,projectSchema, taskSchema,tokenSchema,inviteMemberSchema
 }
