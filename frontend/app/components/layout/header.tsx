@@ -27,7 +27,6 @@ export const Header = ({
   onCreateWorkspace,
 }: HeaderProps) => {
   const navigate = useNavigate();
-
   const { user, logout } = useAuth();
   const { workspaces } = useLoaderData() as { workspaces: Workspace[] };
   const isOnWorkspacePage = useLocation().pathname.includes("/workspace");
@@ -40,7 +39,6 @@ export const Header = ({
       navigate(`/workspaces/${workspace._id}`);
     } else {
       const basePath = location.pathname;
-
       navigate(`${basePath}?workspaceId=${workspace._id}`);
     }
   };
@@ -73,13 +71,8 @@ export const Header = ({
 
             <DropdownMenuGroup>
               {workspaces.map((ws) => (
-                <DropdownMenuItem
-                  key={ws._id}
-                  onClick={() => handleOnClick(ws)}
-                >
-                  {ws.color && (
-                    <WorkspaceAvatar color={ws.color} name={ws.name} />
-                  )}
+                <DropdownMenuItem key={ws._id} onClick={() => handleOnClick(ws)}>
+                  {ws.color && <WorkspaceAvatar color={ws.color} name={ws.name} />}
                   <span className="ml-2">{ws.name}</span>
                 </DropdownMenuItem>
               ))}
@@ -103,9 +96,11 @@ export const Header = ({
             <DropdownMenuTrigger asChild>
               <button className="rounded-full border p-1 w-8 h-8">
                 <Avatar className="w-8 h-8">
-                  <AvatarImage src={user?.profilePicture} alt={user?.name} />
+                  {user?.profilePicture ? (
+                    <AvatarImage src={user.profilePicture} alt={user.name} />
+                  ) : null}
                   <AvatarFallback className="bg-primary text-primary-foreground">
-                    {user?.name?.charAt(0).toUpperCase()}
+                    {user?.name?.charAt(0).toUpperCase() || "U"}
                   </AvatarFallback>
                 </Avatar>
               </button>

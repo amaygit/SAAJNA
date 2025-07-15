@@ -36,7 +36,7 @@ export const SidebarNav = ({
                             navigate(el.href)
                         }
                         else if (currentWorkspace && currentWorkspace._id) {
-                            navigate(`${el.href}?workpsaceId=${currentWorkspace._id}`)
+                            navigate(`${el.href}?workspaceId=${currentWorkspace._id}`)
                         }
                         else {
                             navigate(el.href)

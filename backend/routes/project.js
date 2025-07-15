@@ -7,9 +7,20 @@ import {
   createProject,
   getProjectDetails,
   getProjectTasks,
+  deleteProject
 } from "../controllers/project.js";
 
 const router = express.Router();
+
+router.delete(
+  "/:projectId",
+  authMiddleware,
+  validateRequest({
+    params: z.object({ projectId: z.string() }),
+  }),
+  deleteProject
+);
+
 
 router.post(
   "/:workspaceId/create-project",

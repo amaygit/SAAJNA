@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { UseProjectQuery } from "@/hooks/use-project";
+import { useDeleteProject, UseProjectQuery } from "@/hooks/use-project";
 import { getProjectProgress } from "@/lib";
 import { cn } from "@/lib/utils";
 import type { Project, Task, TaskStatus } from "@/types";
@@ -15,6 +15,7 @@ import { format } from "date-fns";
 import { AlertCircle, Calendar, CheckCircle, Clock } from "lucide-react";
 import { useState } from "react";
 import { useNavigate, useParams } from "react-router";
+import { toast } from "sonner";
 
 const ProjectDetails = () => {
   const { projectId, workspaceId } = useParams<{
@@ -33,7 +34,7 @@ const ProjectDetails = () => {
     };
     isLoading: boolean;
   };
-
+const { mutate: deleteProject, isPending: isDeleting } = useDeleteProject();
   if (isLoading)
     return (
       <div>
@@ -49,6 +50,24 @@ const ProjectDetails = () => {
       `/workspaces/${workspaceId}/projects/${projectId}/tasks/${taskId}`
     );
   };
+// const { mutate: deleteProject, isPending: isDeleting } = useDeleteProject();
+
+const handleDeleteProject = () => {
+  if (!projectId) return;
+
+  const confirmDelete = confirm("Are you sure you want to delete this case? This action cannot be undone.");
+  if (!confirmDelete) return;
+
+  deleteProject(projectId, {
+    onSuccess: () => {
+      toast.success("Case deleted successfully.");
+      navigate(`/workspaces/${workspaceId}`);
+    },
+    onError: (err: any) => {
+      toast.error(err?.response?.data?.message || "Failed to delete case.");
+    },
+  });
+};
 
   return (
     <div className="space-y-8">
@@ -74,7 +93,11 @@ const ProjectDetails = () => {
             </span>
           </div>
 
-          <Button onClick={() => setIsCreateTask(true)}>Add Case</Button>
+          <Button onClick={() => setIsCreateTask(true)}>Add Case Milestone</Button>
+          <Button variant="destructive" onClick={handleDeleteProject} disabled={isDeleting}>
+  {isDeleting ? "Deleting..." : "Delete Entire Case Milestone"}
+</Button>
+
         </div>
       </div>
 

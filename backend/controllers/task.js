@@ -45,6 +45,7 @@ const createTask = async (req, res) => {
       dueDate,
       assignees,
       project: projectId,
+      workspace: project.workspace,
       createdBy: req.user._id,
     });
 
@@ -420,7 +421,7 @@ const updateSubTask = async (req, res) => {
 
     // record activity
     await recordActivity(req.user._id, "updated_subtask", "Task", taskId, {
-      description: `updated case mileston ${subTask.title}`,
+      description: `updated case milestone ${subTask.title}`,
     });
 
     res.status(200).json(task);

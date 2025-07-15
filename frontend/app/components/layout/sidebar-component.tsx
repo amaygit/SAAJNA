@@ -27,7 +27,7 @@ export const SideBarComponent = ({
             icon: Users,
         },
         {
-            title: "My Tasks",
+            title: "My Cases",
             href: "/my-tasks",
             icon: ListCheck,
         },

@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { useParams } from 'react-router';
 import { useGetWorkspaceQuery } from '@/hooks/use-workspace';
+import { InviteMemberDialog } from "@/components/workspace/invite-member";
 import type { Project, Workspace } from "@/types";
 import { Loader } from 'lucide-react';
 import { WorkspaceHeader } from '@/components/workspace/workspace-header';
@@ -48,6 +49,12 @@ const WorkspaceDetails = () => {
                     workspaceId={workspaceId}
                     workspaceMembers={data.workspace.members as any}
                 />
+                
+      <InviteMemberDialog
+        isOpen={isInviteMember}
+        onOpenChange={setIsInviteMember}
+        workspaceId={workspaceId}
+      />
             </h1>
         </div>
     )
