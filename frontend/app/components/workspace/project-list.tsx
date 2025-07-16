@@ -20,8 +20,8 @@ export const ProjectList = ({
       <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
         {projects.length === 0 ? (
           <NoDataFound
-            title="No projects found"
-            description="Create a project to get started"
+            title="No Cases found"
+            description="Create a case to get started"
             buttonText="Create Case"
             buttonAction={onCreateProject}
           />
