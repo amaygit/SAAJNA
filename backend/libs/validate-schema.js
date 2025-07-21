@@ -71,8 +71,12 @@ const taskSchema = z.object({
   dueDate: z.string().min(1, "Due date is required"),
   assignees: z.array(z.string()).min(1, "At least one assignee is required"),
 });
+const inviteProjectMemberSchema = z.object({
+  email: z.string().email("Invalid email address"),
+  role: z.enum(["manager", "contributor", "viewer"]),
+});
 
 
 export {
-    registerSchema,loginSchema,verifyEmailSchema,resetPasswordSchema,emailSchema,workspaceSchema,projectSchema, taskSchema,tokenSchema,inviteMemberSchema
+    registerSchema,loginSchema,verifyEmailSchema,resetPasswordSchema,emailSchema,workspaceSchema,projectSchema, taskSchema,tokenSchema,inviteMemberSchema,inviteProjectMemberSchema
 }

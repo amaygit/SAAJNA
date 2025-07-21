@@ -12,13 +12,13 @@ export const RecentProjects = ({ data }: { data: Project[] }) => {
   return (
     <Card className="lg:col-spa-2">
       <CardHeader>
-        <CardTitle>Recent Projects</CardTitle>
+        <CardTitle>Recent cases</CardTitle>
       </CardHeader>
 
       <CardContent className="space-y-4">
         {data.length === 0 ? (
           <p className="text-center text-muted-foreground py-8">
-            No Recent project yet
+            No Recent cases yet
           </p>
         ) : (
           data.map((project) => {

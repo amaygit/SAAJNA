@@ -39,3 +39,35 @@ export const useDeleteProject = () => {
     },
   });
 };
+
+
+
+
+export const useGetProjectDetails = (projectId: string | undefined) => {
+  return useQuery({
+    queryKey: ["project", projectId],
+    queryFn: async () => fetchData(`/projects/${projectId}`),
+    enabled: !!projectId,
+  });
+};
+
+export const useInviteProjectMember = () => {
+  return useMutation({
+    mutationFn: (data: { email: string; role: string; projectId: string }) =>
+      postData(`/projects/${data.projectId}/invite-member`, data),
+  });
+};
+
+export const useAcceptProjectInviteMutation = () => {
+  return useMutation({
+    mutationFn: (token: string) =>
+      postData("/projects/accept-invite-token", { token }),
+  });
+};
+
+export const useAcceptProjectInviteManualMutation = () => {
+  return useMutation({
+    mutationFn: (projectId: string) =>
+      postData(`/projects/${projectId}/accept-generate-invite`, {}),
+  });
+};

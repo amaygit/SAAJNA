@@ -48,3 +48,4 @@ const activityLogSchema = new Schema(
 const ActivityLog = mongoose.model("ActivityLog", activityLogSchema);
 
 export default ActivityLog;
+//model view controller
