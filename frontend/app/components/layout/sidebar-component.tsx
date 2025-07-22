@@ -2,7 +2,7 @@
 import { cn } from "@/lib/utils";
 import { useAuth } from "@/provider/auth-context";
 import type { Workspace } from "@/types"
-import { CheckCircle2, ChevronLeft, ChevronRight, ChevronsLeft, ChevronsRight, Gavel, LayoutDashboard, ListCheck, LogOut, Scale, Settings, Users, Wrench } from "lucide-react";
+import { Bot, CheckCircle2, ChevronLeft, ChevronRight, ChevronsLeft, ChevronsRight, Gavel, LayoutDashboard, ListCheck, LogOut, Scale, Settings, Users, Wrench } from "lucide-react";
 import { useState } from "react";
 import { Link } from "react-router";
 import { Button } from "../ui/button";
@@ -36,10 +36,15 @@ export const SideBarComponent = ({
             href: "/members",
             icon: Users,
         },
-        {
-            title: "Achieved",
-             href: currentWorkspace ? `/dashboard/${currentWorkspace._id}/achived` : "/achieved",
-            icon: CheckCircle2,
+        // {
+        //     title: "Achieved",
+        //      href: currentWorkspace ? `/dashboard/${currentWorkspace._id}/achived` : "/achieved",
+        //     icon: CheckCircle2,
+        // },
+          {
+            title: "AI",
+             href: "/dashboard/ai",
+            icon: Bot,
         },
         {
             title: "Settings",

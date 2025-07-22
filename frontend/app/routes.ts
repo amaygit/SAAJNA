@@ -22,7 +22,9 @@ export default [
 
    route("workspaces/:workspaceId/settings", "routes/dashboard/workspaces/workspace-settings.tsx") ,
      route("achieved", "routes/dashboard/select-workspace.tsx"),
-     route("dashboard/:workspaceId/achived", "routes/dashboard/task/achieved.tsx"),
+    //  route("dashboard/:workspaceId/achived", "routes/dashboard/task/achieved.tsx"),
+// route("ai", "routes/dashboard/ai/page.tsx"),
+route("dashboard/ai", "routes/dashboard/ai.tsx"),
 
 // route(
 //   "dashboard/:workspaceId/tasks",
