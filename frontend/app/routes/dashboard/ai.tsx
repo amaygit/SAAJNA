@@ -94,7 +94,23 @@ const AILawAssistant = () => {
     <div className="min-h-screen flex flex-col bg-background dark:bg-gray-900 text-foreground relative">
       {/* Header */}
       <div className="flex justify-center items-center py-3 border-b border-gray-200 dark:border-gray-800 bg-background sticky top-0 z-10">
-        <h1 className="text-base font-bold text-center flex-1 truncate">Law AI Assistant</h1>
+        {/* <h1 className="text-base font-bold text-center flex-1 truncate">Law AI Assistant</h1>
+         */}
+         <h1
+  className="
+    text-base sm:text-lg
+    
+    font-bold
+    text-gray-800
+    dark:text-gray-200
+    text-left
+    py-2
+    px-3
+  "
+>
+  VakilBot: Your AI Legal Assistant
+</h1>
+
         <button
           onClick={openRestartDialog}
           className="absolute right-4 top-3 sm:static sm:ml-auto bg-white dark:bg-gray-800 shadow-md rounded-full p-2 border border-gray-300 dark:border-gray-800 hover:bg-red-500 hover:text-white transition-colors focus:outline-none focus:ring-2 focus:ring-red-300"
